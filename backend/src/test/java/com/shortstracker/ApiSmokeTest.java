@@ -55,4 +55,23 @@ class ApiSmokeTest {
         .andExpect(status().isServiceUnavailable());
     mvc.perform(get("/api/videos/unknown")).andExpect(status().isNotFound());
   }
+
+  @Test
+  void searchRejectsInvalidInputAndRequiresBackendKey() throws Exception {
+    mvc.perform(
+            post("/api/search")
+                .contentType("application/json")
+                .content("{\"query\":\"test\",\"days\":1,\"maxResults\":50}"))
+        .andExpect(status().isServiceUnavailable());
+    for (String body :
+        java.util.List.of(
+            "{\"query\":\" \",\"days\":1,\"maxResults\":50}",
+            "{\"query\":\"test\",\"days\":0,\"maxResults\":50}",
+            "{\"query\":\"test\",\"days\":8,\"maxResults\":50}",
+            "{\"query\":\"test\",\"days\":1,\"maxResults\":0}",
+            "{\"query\":\"test\",\"days\":1,\"maxResults\":51}")) {
+      mvc.perform(post("/api/search").contentType("application/json").content(body))
+          .andExpect(status().isBadRequest());
+    }
+  }
 }

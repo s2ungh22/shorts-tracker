@@ -323,3 +323,35 @@ label {
     padding: 16px;
   }
 }
+
+.search-form {
+  display: grid;
+  gap: 18px;
+  max-width: 800px;
+}
+.search-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.search-form legend {
+  color: #73798e;
+  margin-bottom: 10px;
+}
+.day-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.day-buttons button[aria-pressed="true"] {
+  background: #4f46e5;
+  color: white;
+}
+.search-form > button {
+  justify-self: start;
+}
+.search-note {
+  color: #73798e;
+  font-size: 12px;
+  line-height: 1.7;
+}

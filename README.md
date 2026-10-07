@@ -85,3 +85,6 @@ npm run build
 - 여러 백엔드 인스턴스 간 스케줄러 잠금 및 API quota 지표/재시도 정책
 - 검색 페이지네이션, Shorts 여부 보완, 재확산 규칙 실데이터 튜닝
 - 브라우저 E2E 테스트 및 실제 YouTube 키를 사용한 수집 검증
+
+## 검색어 기반 콘텐츠 검색
+Search 메뉴에서 검색어, 오늘 포함 최근 1~7일, 최대 결과 개수 1~50을 설정합니다. 날짜는 Asia/Seoul 자정 기준으로 계산합니다. `POST /api/search`의 요청은 `{"query":"연예인 추천","days":7,"maxResults":50}`입니다. 백엔드에서 search.list를 `order=date`, `regionCode=KR`, `relevanceLanguage=ko`로 호출하며 키는 기존 YOUTUBE_API_KEY만 사용합니다. 검색은 제출 시에만 실행됩니다. search.list는 호출당 100 quota 단위를 사용하므로 불필요한 반복 검색을 피하세요. 결과는 일반 영상과 Shorts 모두 포함하며, 최신순 검색은 인기 순위를 의미하지 않습니다. 결과의 영상 추적 버튼으로 통계 수집 및 이후 VPH 분석을 시작할 수 있습니다.

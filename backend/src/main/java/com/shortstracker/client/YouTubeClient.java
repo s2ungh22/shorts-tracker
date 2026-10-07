@@ -85,6 +85,33 @@ public class YouTubeClient {
     }
   }
 
+  public List<SearchItem> searchKeyword(String query, Instant publishedAfter, int maxResults) {
+    check();
+    try {
+      var page =
+          client
+              .get()
+              .uri(
+                  b ->
+                      b.path("/search")
+                          .queryParam("part", "snippet")
+                          .queryParam("type", "video")
+                          .queryParam("q", "{query}")
+                          .queryParam("order", "date")
+                          .queryParam("publishedAfter", publishedAfter.toString())
+                          .queryParam("maxResults", maxResults)
+                          .queryParam("regionCode", "KR")
+                          .queryParam("relevanceLanguage", "ko")
+                          .queryParam("key", "{key}")
+                          .build(query, key))
+              .retrieve()
+              .body(new ParameterizedTypeReference<Page<SearchItem>>() {});
+      return page == null || page.items() == null ? List.of() : page.items();
+    } catch (Exception e) {
+      throw new YouTubeUnavailableException();
+    }
+  }
+
   public static class YouTubeUnavailableException extends RuntimeException {
     public YouTubeUnavailableException() {
       super("YouTube request failed; check API key, quota and network access");

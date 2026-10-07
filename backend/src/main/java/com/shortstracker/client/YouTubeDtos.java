@@ -31,7 +31,7 @@ public final class YouTubeDtos {
   public record ContentDetails(String duration) {}
 
   @JsonIgnoreProperties(ignoreUnknown = true)
-  public record SearchItem(SearchId id) {}
+  public record SearchItem(SearchId id, Snippet snippet) {}
 
   @JsonIgnoreProperties(ignoreUnknown = true)
   public record SearchId(String videoId) {}

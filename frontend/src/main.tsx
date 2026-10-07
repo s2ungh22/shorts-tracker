@@ -1,3 +1,4 @@
+import Search from "./Search";
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
@@ -459,6 +460,7 @@ function App() {
         <nav>
           {[
             ["/", "Dashboard"],
+            ["/search", "Search"],
             ["/my-channel", "My Channel"],
             ["/competitors", "Competitors"],
             ["/videos", "Videos"],
@@ -476,6 +478,7 @@ function App() {
       </aside>
       <main>
         <Routes>
+          <Route path="/search" element={<Search />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/videos" element={<Dashboard all />} />
           <Route path="/videos/:id" element={<Detail />} />
