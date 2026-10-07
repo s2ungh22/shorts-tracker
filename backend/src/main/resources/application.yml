@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/shorts_tracker}
+    username: ${DB_USER:shorts}
+    password: ${DB_PASSWORD:shorts}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+  mvc:
+    problemdetails:
+      enabled: true
+youtube:
+  api-key: ${YOUTUBE_API_KEY:}
+tracking:
+  enabled: ${TRACKING_ENABLED:true}
+  seed-videos: ${SEED_VIDEOS:false}
+  snapshot-interval-ms: 600000
+  discovery-interval-ms: 3600000
+  rules:
+    surge-vph: 300
+    surge-acceleration: 50
+    plateau-vph: 10
+    slowing-ratio: 0.6
+    wave-ratio: 2
+    wave-min-vph: 100
+    rising-ratio: 1.2
+    low-vph: 30
+    decline-ratio: 0.5
+    second-wave-hours: 6
+    reexpanding-hours: 12
+    new-hours: 1
